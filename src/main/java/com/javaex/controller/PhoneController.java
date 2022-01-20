@@ -32,21 +32,6 @@ public class PhoneController {
 	///////////////////////
 	// method
 	/////////////////////// 
-	@RequestMapping(value="writeForm", method=RequestMethod.GET)
-	public String writeForm() {
-		
-		return "writeForm";
-	}
-	
-	@RequestMapping(value="write", method=RequestMethod.GET)
-	public String write(@ModelAttribute PersonVo pvo) {
-		// @ModelAttribute: param과 일치하는 setter를 찾아 값을 넣어준다. (default 생성자를 꼭 정의!)	
-		
-		phoneDao.insertPerson(pvo);
-		
-		return "redirect:/phone/list";
-	}
-	
 	@RequestMapping(value="list", method={RequestMethod.GET, RequestMethod.POST})
 	public String list(Model  model) {
 		
@@ -60,6 +45,23 @@ public class PhoneController {
 		return "list"; // viewResolver
 	}
 	
+	@RequestMapping(value="writeForm", method=RequestMethod.GET)
+	public String writeForm() {
+		
+		return "writeForm";
+	}
+	
+	
+	@RequestMapping(value="write", method=RequestMethod.GET)
+	public String write(@ModelAttribute PersonVo pvo) {
+		// @ModelAttribute: param과 일치하는 setter를 찾아 값을 넣어준다. (default 생성자를 꼭 정의!)	
+		
+		phoneDao.insertPerson(pvo);
+		
+		return "redirect:/phone/list";
+	}
+	
+	
 	@RequestMapping(value="delete", method={RequestMethod.GET, RequestMethod.POST})
 	public String delete(@RequestParam int personId) {
 		
@@ -67,6 +69,7 @@ public class PhoneController {
 		
 		return "redirect:/phone/list";
 	}
+	
 	
 	@RequestMapping("updateForm")
 	public String updateForm(Model model, @RequestParam int personId) {
@@ -77,6 +80,7 @@ public class PhoneController {
 		
 		return "updateForm";
 	}
+	
 	
 	@RequestMapping("update")
 	public String udpate(@ModelAttribute PersonVo pvo) {
